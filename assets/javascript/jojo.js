@@ -14,10 +14,15 @@ function initMap() {
           position: userMapInput,
           map: map
         });
+
       };
 
+
+
+
+
     var userInputSearch="";
-	var queryUrl = "https://api.foursquare.com/v2/venues/explore?client_id=NCFDMIMRBLCB1MNHTEXODLIWB2KWDVQBQ50ZTCYQ3X05N43Y&client_secret=JPMDM31IHWHU35E4EVKGG3BGVYWEZ4DHWHIHDP4YSQFBYSOB&v=20170801&ll=39.742043, -104.991531&query=food truck " + userInputSearch + "&limit=20";
+	var queryUrl = "https://api.foursquare.com/v2/venues/explore?client_id=NCFDMIMRBLCB1MNHTEXODLIWB2KWDVQBQ50ZTCYQ3X05N43Y&client_secret=JPMDM31IHWHU35E4EVKGG3BGVYWEZ4DHWHIHDP4YSQFBYSOB&v=20170801&ll=39.742043, -104.991531&query=food truck " + userInputSearch + "&limit=50";
 
 	$.ajax({
 		url: queryUrl,
@@ -27,8 +32,9 @@ function initMap() {
 		// console.log(response.response.groups[0].items[0].venue);
 
 		var locationsArray= response.response.groups[0].items;
-		var newLocationsArray= _.sortBy(locationsArray.)
+		var newLocationsArray= _.sortBy(locationsArray, [function(location) {return location.venue.rating; }]);
 		console.log(locationsArray);
+		console.log(newLocationsArray);
 
 		for(var i=0; i< locationsArray.length; i++){
 			// console.log(locationsArray[i].venue);

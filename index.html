@@ -18,19 +18,12 @@
 </head>
 <body>
 
-	<!-- Navigation -->
-  <!--   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
-  		</button> -->
-
-  		<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-  <a class="navbar-brand js-scroll-trigger" href="#page-top">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	
+	<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+		<a class="navbar-brand js-scroll-trigger" href="#page-top">Navbar</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
@@ -51,11 +44,9 @@
     <!-- Header -->
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
-        <h1 class="text-uppercase mb-0">Food Truckr</h1>
-                   		<img class="img-fluid" src="./assets/images/food.png" alt="logo">
-
+<!--         <h1 class="text-uppercase mb-0">Food Truckr</h1>
+ -->       		<img class="img-fluid" src="./assets/images/foodtk.png" width="50%" alt="logo">
         <h2 class="font-weight-light mb-0">slogan</h2>
-
       </div>
     </header>
 
@@ -64,41 +55,40 @@
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">List of Food Trucks</h2>
         <hr class="star-dark mb-5">
-           		<div id="map">
-           			
+           		<div id="map"></div>
+        
+        <div class= "buttons">
+		<div class= "text-center main-btn">
+			<button type="button" class="btn btn-primary col-md-3 text-center" data-toggle="modal" data-target="#exampleModal">Pin a Food Truck</button>
+		
 
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Name of Truck</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+					</form>
+					<p>Sorry, no food truck found with that name</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
-           		</div>
-           		
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-Pin a Food Truck</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Name of Truck</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
-			</form>
-			<p>Sorry, no food truck found with that name</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-				<button class="btn btn-primary" type="submit" value="Input">Find a Food Truck Near Me</button>
-			
+			<button class="btn btn-primary col-md-3" type="submit" value="Input">Find a Food Truck Near Me</button>
+		</div>
+		</div>
 
 
         <div class="row">
@@ -169,21 +159,15 @@ Pin a Food Truck</button>
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
       <div class="container">
-        <h2 class="text-center text-uppercase text-white">About</h2>
+        <h2 class="text-center text-uppercase text-white">About Us</h2>
         <hr class="star-light mb-5">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique numquam, praesentium tenetur. Ab sapiente nobis quod ipsum, magni aperiam molestias dolorum ipsam minus, autem voluptas, obcaecati excepturi in laudantium sunt!</p>
           </div>
           <div class="col-lg-4 mr-auto">
-            <p class="lead">Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores similique eos, ipsa fugit placeat voluptates incidunt sed aliquam odit enim impedit laboriosam, veritatis, ad quia hic aperiam nam corporis! Fuga!</p>
           </div>
-        </div>
-        <div class="text-center mt-4">
-          <a class="btn btn-xl btn-outline-light" href="#">
-            <i class="fa fa-download mr-2"></i>
-            Download Now!
-          </a>
         </div>
       </div>
     </section>
@@ -191,7 +175,7 @@ Pin a Food Truck</button>
     <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Contact Me</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Contact Us</h2>
         <hr class="star-dark mb-5">
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -239,55 +223,21 @@ Pin a Food Truck</button>
 
     <!-- Footer -->
     <footer class="footer text-center">
-      <div class="container">
+      <div class="container text-center">
         <div class="row">
-          <div class="col-md-4 mb-5 mb-lg-0">
+          <div class="col-md-12">
             <h4 class="text-uppercase mb-4">Location</h4>
-            <p class="lead mb-0">2215 John Daniel Drive
-              <br>Clark, MO 65243</p>
+            <p class="lead mb-0">1111 Testing Drive
+              <br>Denver, CO 80204</p>
           </div>
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Around the Web</h4>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-google-plus"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-linkedin"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-dribbble"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">About Freelancer</h4>
-            <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-              <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-          </div>
+             
         </div>
       </div>
     </footer>
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; Your Website 2017</small>
+        <small>Copyright &copy; Food Truckr 2018</small>
       </div>
     </div>
 
