@@ -21,6 +21,8 @@ var database = firebase.database();
 var connectionsRef = database.ref("/connections");
 var connectedRef = database.ref(".info/connected");
 var usersRef = firebase.database().ref("users");
+var markersRef = firebase.database().ref("markers");
+var trucksRef = firebase.database().ref("trucks");
 
 //Adding to verify client is connecting to app before authentication
 connectedRef.on("value", function(snap) {
