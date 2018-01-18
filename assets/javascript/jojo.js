@@ -1,6 +1,6 @@
 var userMapInput={lat: 39.710850, lng: -105.081505};
 
-function initMap() {
+/*function initMap() {
         var uluru = {lat: 39.742043, lng: -104.991531};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
@@ -35,7 +35,7 @@ function initMap() {
         } else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
-        } 
+        }
 
       };
 
@@ -45,7 +45,7 @@ function initMap() {
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
-      };
+      };*/
 
 
   var userInputSearch="";
