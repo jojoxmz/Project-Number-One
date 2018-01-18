@@ -3,12 +3,15 @@
 <head>
 	<title>A Pleasant Surprise</title>
 	<meta charset="UTF-8" name="viewpoint" content="width=device-width, initial-scale=1.0">
-	
+
+	<!-- Firebase Script -->
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+
 	<!-- bootstrap CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>  
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
@@ -35,7 +38,7 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact Us</a>
             </li>
-            
+
           </ul>
         </div>
       </div>
@@ -55,6 +58,43 @@
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">List of Food Trucks</h2>
         <hr class="star-dark mb-5">
+
+           		<div id="map">
+
+
+
+           		</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+Pin a Food Truck</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Name of Truck</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+			</form>
+			<p>Sorry, no food truck found with that name</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+				<button class="btn btn-primary" type="submit" value="Input">Find a Food Truck Near Me</button>
+
+
            		<div id="map"></div>
         
         <div class= "buttons">
@@ -89,6 +129,7 @@
 			<button class="btn btn-primary col-md-3" type="submit" value="Input">Find a Food Truck Near Me</button>
 		</div>
 		</div>
+
 
 
         <div class="row">
@@ -382,12 +423,12 @@
       </div>
     </div>
 
-	
-
-
     <!-- Contact Form JavaScript -->
     <script src="./assets/javascript/jojo.js"></script>
-	
+
+		<!-- Current Holder for Auth JS (Test) -->
+		<script src="./assets/javascript/auth.js"></script>
+
 	<script async defer
     src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js">
     </script>
@@ -396,8 +437,9 @@
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHhZm7Y29u2ffWMapHvBNPM1PbpXJDO5k&callback=initMap">
     </script>
- 	
 
+	<!-- Map Functions JavaScript -->
+	<script src="./assets/javascript/maplogic.js"></script>
 
   </body>
 
