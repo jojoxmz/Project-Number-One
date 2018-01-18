@@ -27,7 +27,6 @@ var trucksRef = firebase.database().ref("trucks");
 //Adding to verify client is connecting to app before authentication
 connectedRef.on("value", function(snap) {
   if (snap.val()) {
-
     var con = connectionsRef.push(true);
     con.onDisconnect().remove();
   }
@@ -56,6 +55,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
   console.log("The user is singed in");
   } else {
-  console.log("The user is not singed in");
+  console.log("The user is not signed in");
   }
 });
