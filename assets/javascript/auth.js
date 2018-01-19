@@ -1,5 +1,4 @@
-
-var config = {
+/*var config = {
   apiKey: "AIzaSyBjhon0-cIYtELUMFxUT0isynUMCxaNp9Y",
   authDomain: "food-truckr.firebaseapp.com",
   databaseURL: "https://food-truckr.firebaseio.com",
@@ -24,7 +23,6 @@ var usersRef = firebase.database().ref("users");
 var markersRef = firebase.database().ref("markers");
 var trucksRef = firebase.database().ref("trucks");
 
-//Adding to verify client is connecting to app before authentication
 connectedRef.on("value", function(snap) {
   if (snap.val()) {
     var con = connectionsRef.push(true);
@@ -34,7 +32,7 @@ connectedRef.on("value", function(snap) {
 
 //the event listener should be once email and password submitted(after veryifying OK) and
 //should pull from form. This is just to test whether we may create a new account on firebase.
-$(".nav-item").on("click", function() {
+/*$(".nav-item").on("click", function() {
   alert("called");
 
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -57,4 +55,4 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
   console.log("The user is not signed in");
   }
-});
+});*/

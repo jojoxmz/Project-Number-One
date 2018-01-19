@@ -1,4 +1,4 @@
-var userMapInput={lat: 39.710850, lng: -105.081505};
+//var userMapInput={lat: 39.710850, lng: -105.081505};
 
 /*function initMap() {
         var uluru = {lat: 39.742043, lng: -104.991531};
