@@ -83,6 +83,7 @@ var currentLocation = {};
           $("#num-of-upvotes").text(marker.upvotes);
           $("#num-of-downvotes").text(marker.downvotes);
           $("#activity").text(marker.activity);
+          $("#stats-modal").attr("markerID-data", marker.markerID);
           $("#stats-modal").modal("show");
         });
       }
@@ -107,32 +108,11 @@ function displayNearbyTrucks() {
 
 }
 
-/*Call this on modal button on modal btn click event*/
+/*Call this fxn on modal btn click event*/
 function verifyTruckLocation() {
 
 }
 
-//Retrieves
-function getUserCurrentLocation() {
-  var infoWindow = new google.maps.InfoWindow;
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      currentLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-}
-
-//Retrieves and returns user's current location with deferred promise - implement if needed
 var getUserCurrentLocationWithPromise = function() {
   var infoWindow = new google.maps.InfoWindow;
   var deferred = new $.Deferred();
@@ -153,7 +133,6 @@ var getUserCurrentLocationWithPromise = function() {
   }
   return deferred.promise();
 }
-
 
 //Drops pin at current user location
 function dropPinAtUserCurrentLocation() {
@@ -179,17 +158,12 @@ function dropPinAtUserCurrentLocation() {
   }
 }
 
-$("#pin-truck-btn").on("click", function() {
-   getUserCurrentLocation();
-});
-
 $("#truck-query").on("click", function(event) {
   event.preventDefault();
 
-  //Query YELP or otherwise confirm that entered data is a food truck
-  /*getUserCurrentLocationWithPromise().then(function(position) --> use promise if immediate location call problematic */
+    getUserCurrentLocationWithPromise().then(function(position) {
 
-    var newMarkerData = new MarkerDataObj(currentLocation.lat, currentLocation.lng, "newTruck");
+    var newMarkerData = new MarkerDataObj(position.lat, position.lng, "newTruck");
     var newKey = markersRef.push().key;
     newMarkerData.markerID = newKey;
     //ADD: Truck ID to MarkerData Object if possible with YELP API call
@@ -230,7 +204,7 @@ $("#truck-query").on("click", function(event) {
     updates['/markers/' + newKey] = newMarkerData;
     updates['/trucks/' + newMarkerData.truckName + '/' + newKey] = newMarkerData;
     database.ref().update(updates);
-  //});
+  });
 });
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -240,21 +214,3 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
-
-//TESTING
-function changeMarkerTest() {
-  for(var i = 0; i < 5; i++) {
-     markerArr[i].title = "Scott";
-     markerArr[i].upvotes = 100;
-     markerArr[i].downvotes = 20;
-  }
-}
-
-//TESTING
-/*setTimeout(function() {
-  dropPinAtUserCurrentLocation();
-}, 3000);*/
-
-/*setTimeout(function() {
-  getUserCurrentLocation();
-}, 5000);*/
