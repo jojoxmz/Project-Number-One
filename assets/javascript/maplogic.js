@@ -1,20 +1,45 @@
+//Initial Firebase Congifiguation
+var config = {
+  apiKey: "AIzaSyBjhon0-cIYtELUMFxUT0isynUMCxaNp9Y",
+  authDomain: "food-truckr.firebaseapp.com",
+  databaseURL: "https://food-truckr.firebaseio.com",
+  projectId: "food-truckr",
+  storageBucket: "food-truckr.appspot.com",
+  messagingSenderId: "463131017710"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var connectionsRef = database.ref("/connections");
+var connectedRef = database.ref(".info/connected");
+var markersRef = firebase.database().ref("markers");
+var trucksRef = firebase.database().ref("trucks");
+
+connectedRef.on("value", function(snap) {
+  if (snap.val()) {
+    var con = connectionsRef.push(true);
+    con.onDisconnect().remove();
+  }
+});
+
 var map;
 var locationsObj = {};
 var markerArr = [];
-var pos = {}
 var initialDisplaySet = false;
+var currentLocation = {};
 
-//Class that will store marker-related data, and pass that data to firebase
+//Class that will store marker-related data, instances to be passed to firebase
  class MarkerDataObj {
-   constructor(lat, lng, truckName, user,  markerID) {
-     this.markerID = markerID;
+   constructor(lat, lng, truckName) {
+     this.markerID = "";
      this.lat = lat;
      this.lng = lng;
      this.truckName = truckName;
      this.upvotes = 0;
      this.downvotes = 0;
      this.recentActivity = "Pinned";
-     this.recentActivityUser = user;
      this.recentActivityTime = "";
    }
  }
@@ -22,11 +47,11 @@ var initialDisplaySet = false;
  //Called  on initial page load and on when any child modified. For initial page load,
  //iterate over child nodes (data related to individual markers), create initial markers
  //for display with embedded data, and pin those markers to map. The data in the markers
- //will be used to generate the infowindows on a click event. Add a reference to the markers
+ //will be used to generate populate the stats-modals on a click event. Addinf reference to the markers
  //in array to manipulate or remove markers
  markersRef.on('value', function(snapshot) {
 
-  if (initialDisplaySet == false)
+  if (initialDisplaySet == false) {
     snapshot.forEach(function(childNodes) {
 
       var markerID = (childNodes.key).toString();
@@ -36,17 +61,7 @@ var initialDisplaySet = false;
       var upvotes = childNodes.val().upvotes;
       var downvotes = childNodes.val().downvotes;
       var recentActivity = childNodes.val().recentActivity;
-      var recentActivityUser = childNodes.val().recentActivityUser;
       var recentActivityTime = childNodes.val().recentActivityTime;
-      console.log(markerID);
-      console.log(lat);
-      console.log(lng);
-      console.log(truckName);
-      console.log(upvotes);
-      console.log(downvotes);
-      console.log(recentActivity);
-      console.log(recentActivityUser);
-      console.log(recentActivityTime);
 
       var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
@@ -56,87 +71,34 @@ var initialDisplaySet = false;
         upvotes: upvotes,
         downvotes: downvotes,
         recentActivity: recentActivity,
-        recentActivityUser: recentActivityUser,
         recentActivityTime: recentActivityTime
       });
 
       markerArr.push(marker);
+
+      //Enclosing reference to marker
+      function attachClickEvent(marker) {
+        google.maps.event.addListener(marker, "click", function() {
+          $("#truck-name").text(marker.title);
+          $("#num-of-upvotes").text(marker.upvotes);
+          $("#num-of-downvotes").text(marker.downvotes);
+          $("#activity").text(marker.activity);
+          $("#stats-modal").modal("show");
+        });
+      }
+       attachClickEvent(marker);
     });
-
+  }
     initialDisplaySet = true;
-    for (var i = 0; i < markerArr.length; i++) {
-      console.log(markerArr[i]);
-      var newMarker = markerArr[i];
-      var id = newMarker.markerID;
-      console.log("The marker id is :" + id);
-      newMarker.markerID = "111111";
-      console.log(newMarker.markerID);
-      console.log(markerArr[i].markerID);
-    }
+});
 
-    //Attach click event listener with closure that creates infowindow based on markers
-  });
-
-//This is called when Google maps is down loading. Add any fuctionality here we want triggered at that point.
+//This is called when Google maps API done loading. Add any fuctionality here we want triggered at that point.
 function initMap() {
   var denverCenter = {lat: 39.742043, lng: -104.991531};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: denverCenter
   });
-  var marker = new google.maps.Marker({
-    position: denverCenter,
-    map: map
-  });
-
-  markerArr.push(marker);
-  console.log(markerArr[0]);
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      console.log(pos);
-    });
-  }
-}
-
-
-//FOR TESTING PURPOSES - Call to FourSquare API to obtain location data for testing purposes. Actual location data will be user input.
-var queryUrl = "https://api.foursquare.com/v2/venues/explore?client_id=NCFDMIMRBLCB1MNHTEXODLIWB2KWDVQBQ50ZTCYQ3X05N43Y&client_secret=JPMDM31IHWHU35E4EVKGG3BGVYWEZ4DHWHIHDP4YSQFBYSOB&v=20170801&ll=39.742043,-104.991531&query=food truck&limit=20";
-$.ajax({
-  url: queryUrl,
-  method: 'GET'
-}).done(function(response) {
-
-  var locationsArray= response.response.groups[0].items;
-
-  /*Create object of different locations for initial testing purposes. Will be using
-  user geolocation for actual app*/
-  for(var i=0; i< locationsArray.length; i++) {
-    console.log(locationsArray[i].venue.location.lat + " " + locationsArray[i].venue.location.lng);
-    locationsObj["location-" + i] = new Object();
-    locationsObj["location-" + i]["lat"] = locationsArray[i].venue.location.lat;
-    locationsObj["location-" + i]["lng"] = locationsArray[i].venue.location.lng;
-  };
-
-  iterateObjAndPin(locationsObj);
-});
-
-//This function can be passed or called to pin a marker at a given
-function pinMarker(lat, lng) {
-  var newLoc = {lat: lat, lng: lng};
-  var marker = new google.maps.Marker({
-    position: newLoc,
-    map: map
-  });
-}
-
-//Add new truck data with location to firebase and display new pin - called on event listener
-function addNewTruckAndPin() {
-
 }
 
 /*Center map on user's current location within a predetermined radius (possibly drop pin at user's current)
@@ -145,56 +107,60 @@ function displayNearbyTrucks() {
 
 }
 
-/*Center map on user's current location within a predetermined radius (possibly drop pin at user's current)
-location*/
+/*Call this on modal button on modal btn click event*/
 function verifyTruckLocation() {
 
 }
 
-//LIKELY WILL NOT USE THIS FUNCTION (RATHER WILL USE FOR EACH TO ITER FIREBASE OBJ)
-//BUT COULD BE USEFUL LATER - KEEP FOR NOW.
-/*function iterateObjAndPin(obj) {
-  var result = "";
-  var locToPin = {};
-
-  for (var key in obj) {
-    result = key + " , " + obj[key];
-    if (key == "lat") {
-      locToPin.lat = obj[key];
-    } else if (key == "lng") {
-      locToPin.lng = obj[key];
-    }
-
-    if(locToPin.hasOwnProperty("lat") && locToPin.hasOwnProperty("lng")) {
-      //pinMarker(locToPin.lat, locToPin.lng);
-    }
-
-    if(obj[key] !== null && typeof obj[key] === "object") {
-      iterateObjAndPin(obj[key]);
-    }
-  }
-}*/
-
-//Retrieves and returns user's current location
+//Retrieves
 function getUserCurrentLocation() {
-    var infoWindow = new google.maps.InfoWindow;
+  var infoWindow = new google.maps.InfoWindow;
 
-      navigator.geolocation.getCurrentPosition(function(position) {
-        pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      currentLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-    return pos;
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 }
 
-function dropPinAtUserCurrentLocation() {
-    var infoWindow = new google.maps.InfoWindow;
+//Retrieves and returns user's current location with deferred promise - implement if needed
+var getUserCurrentLocationWithPromise = function() {
+  var infoWindow = new google.maps.InfoWindow;
+  var deferred = new $.Deferred();
 
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
+      var position = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      deferred.resolve(position);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+  return deferred.promise();
+}
+
+
+//Drops pin at current user location
+function dropPinAtUserCurrentLocation() {
+  var infoWindow = new google.maps.InfoWindow;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      position.coords.latitude
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -208,44 +174,63 @@ function dropPinAtUserCurrentLocation() {
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
   }
+}
 
-
-//Event listeners
 $("#pin-truck-btn").on("click", function() {
-  (markerArr[0]).setMap(null);
-  console.log(MarkerArr);
-  var loc = getUserCurrentLocation();
+   getUserCurrentLocation();
+});
 
-  //******STEP TO ADD NEW PIN*******/
-  //Call YELP to see if food truck matches result from YELP API - if so, retrieve truck ID and use name for truck name [or use dropdown]
-  //Windowinfo will be populated based on data stored in pin on click event.
-  //Create global associative array to track pins on page (cannot grab by ID like standard HTML dom).
+$("#truck-query").on("click", function(event) {
+  event.preventDefault();
 
-  var newMarkerData = new MarkerDataObj(loc.lat, loc.lng, "newTruck", "greg");
-  var newKey = markersRef.push().key;
-  newMarkerData.markerID = newKey;
-  //Add Truck ID to MarkerData Object, the
+  //Query YELP or otherwise confirm that entered data is a food truck
+  /*getUserCurrentLocationWithPromise().then(function(position) --> use promise if immediate location call problematic */
 
-  //New marker with custom data to be stored in and updated with firebase
-  var marker = new google.maps.Marker({
-    position: loc,
-    map: map,
-    title: newMarkerData.truckName,
-    markerID: newMarkerData.newKey,
-    upvotes: newMarkerData.upvotes,
-    downvotes: newMarkerData.downvotes,
-    recentActivity: newMarkerData.recentActivity,
-    recentActivityUser: newMarkerData.recentActivityUser,
-    recentActivityTime: newMarkerData.recentActivityTime
-  });
+    var newMarkerData = new MarkerDataObj(currentLocation.lat, currentLocation.lng, "newTruck");
+    var newKey = markersRef.push().key;
+    newMarkerData.markerID = newKey;
+    //ADD: Truck ID to MarkerData Object if possible with YELP API call
 
-  //associativeMarkerArr.push(newMarker) - push marker object into array to modify/remove later
+    //New marker dropped with custom data to be stored in and updated with firebase
+    var marker = new google.maps.Marker({
+      position: {lat: newMarkerData.lat, lng: newMarkerData.lng},
+      map: map,
+      title: newMarkerData.truckName,
+      markerID: newMarkerData.newKey,
+      upvotes: newMarkerData.upvotes,
+      downvotes: newMarkerData.downvotes,
+      recentActivity: newMarkerData.recentActivity,
+      recentActivityTime: newMarkerData.recentActivityTime
+    });
 
-  var updates = {};
-  updates['/markers/' + newKey] = newMarkerData;
-  updates['/trucks/' + newMarkerData.truckName + '/' + newKey] = newMarkerData;
-  database.ref().update(updates);
+    map.setZoom(18);
+    map.panTo(marker.position);
+
+    //Push new marker
+    markerArr.push(marker);
+
+    //Enclosing reference to marker
+    function attachClickEvent(marker) {
+      google.maps.event.addListener(marker, "click", function() {
+        $("#truck-name").text(marker.title);
+        $("#num-of-upvotes").text(marker.upvotes);
+        $("#num-of-downvotes").text(marker.downvotes);
+        $("#activity").text(marker.activity);
+        $("#stats-modal").modal("show");
+      });
+    }
+
+    attachClickEvent(marker);
+
+    //Push new marker to firebase
+    var updates = {};
+    updates['/markers/' + newKey] = newMarkerData;
+    updates['/trucks/' + newMarkerData.truckName + '/' + newKey] = newMarkerData;
+    database.ref().update(updates);
+  //});
 });
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -255,3 +240,21 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
+
+//TESTING
+function changeMarkerTest() {
+  for(var i = 0; i < 5; i++) {
+     markerArr[i].title = "Scott";
+     markerArr[i].upvotes = 100;
+     markerArr[i].downvotes = 20;
+  }
+}
+
+//TESTING
+/*setTimeout(function() {
+  dropPinAtUserCurrentLocation();
+}, 3000);*/
+
+/*setTimeout(function() {
+  getUserCurrentLocation();
+}, 5000);*/

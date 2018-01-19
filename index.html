@@ -4,22 +4,39 @@
 	<title>A Pleasant Surprise</title>
 	<meta charset="UTF-8" name="viewpoint" content="width=device-width, initial-scale=1.0">
 
-	<!-- Firebase Script -->
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-
-	<!-- bootstrap CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-
 	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+	<!-- Firebase Script -->
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 
 	<!-- jQuery -->
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+
+		<div id="stats-modal" class="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 id="truck-name" class="modal-title">Truck Name</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	         <div id="upvotes"><span id="num-of-upvotes">Num of Upvotes</span></div>
+					 <div id="downvotes"><span id="num-of-downvotes">Num of Downvotes</span></div>
+					 <div id="recent-activity">Most Recent Activity: <span id="activity"></span> on <span id="activity-date"></span></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Thumbs Up</button>
+	        <button type="button" class="btn btn-primary">Thumbs Down</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
 	<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
@@ -79,7 +96,7 @@
 		      <div class="modal-body">
 					<form class="form-inline my-2 my-lg-0">
 						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+						<button id="truck-query" class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
 					</form>
 					<p>Sorry, no food truck found with that name</p>
 		      </div>
@@ -387,17 +404,22 @@
       </div>
     </div>
 
-    <!-- Contact Form JavaScript -->
-<!--     <script src="./assets/javascript/jojo.js"></script>
- -->
-		<!-- Current Holder for Auth JS (Test) -->
-	<script src="./assets/javascript/auth.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<!--<script src="./assets/javascript/jojo.js"></script> -->
+
+	<!-- Current Holder for Auth JS (Test) -->
+
+	<!-- bootstrap CDN -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
 	<script async defer
     src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js">
     </script>
 
-	<!-- Google Map-->
+	<!-- Google Maps-->
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHhZm7Y29u2ffWMapHvBNPM1PbpXJDO5k&callback=initMap">
     </script>
