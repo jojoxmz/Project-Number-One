@@ -24,7 +24,7 @@ connectedRef.on("value", function(snap) {
     userKey = con.key;
   }
 });
-
+var denverCenter = {lat: 39.742043, lng: -104.991531};
 var map;
 var locationsObj = {};
 var markerArr = [];
@@ -95,14 +95,27 @@ var currentLocation = {};
     initialDisplaySet = true;
 });
 
+
+function loadMap (){
+
+}
 //This is called when Google maps API done loading. Add any fuctionality here we want triggered at that point.
 function initMap() {
-  var denverCenter = {lat: 39.742043, lng: -104.991531};
+
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: denverCenter
+
   });
 }
+
+$(".reset").on("click",function() {
+  map.setOptions({
+       center: denverCenter,
+       zoom: 12
+   });
+})
+
 
 /*Center map on user's current location within a predetermined radius (possibly drop pin at user's current)
 location*/
@@ -245,7 +258,7 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
       }
     }
 
-    // $("#stat-modal").modal("hide");
+    $("#stat-modal").modal("hide");
     $("#upvote-btn").attr("markerID-data", "");
     $("#downvote-btn").attr("markerID-data", "");
 
