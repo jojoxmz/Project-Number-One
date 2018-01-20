@@ -60,6 +60,7 @@ var currentLocation = {};
    $("#downvote-btn").attr("markerID-data", this.markerID);
    $("#stats-modal").modal("show");
  }
+
  //Called  on initial page load and on when any child modified. For initial page load,
  //iterate over child nodes (data related to individual markers), create initial markers
  //for display with embedded data, and pin those markers to map. The data in the markers
@@ -146,7 +147,7 @@ var getUserCurrentLocationWithPromise = function() {
 }
 
 //Drops pin at current user location
-function dropPinAtUserCurrentLocation() {
+function dropPinAtUserCurrentLocationAndZoom() {
   var infoWindow = new google.maps.InfoWindow;
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -242,7 +243,6 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
 function updateFbUpVoteCount(currentUpVotes, markerID) {
   for(i = 0; i < markerArr.length; i++) {
 
-
     if(markerArr[i].markerID == markerID) {
       var truckName = markerArr[i].title;
       console.log(truckName);
@@ -250,7 +250,6 @@ function updateFbUpVoteCount(currentUpVotes, markerID) {
     //$("#stat-modal").modal("hide");
     //$("#upvote-btn").attr("markerID-data", "");
     //$("#downvote-btn").attr("markerID-data", "");
-
 
       markersRef.child(markerID).update({
         upvotes: currentUpVotes,
