@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<!-- Firebase Script -->
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 
@@ -16,7 +18,7 @@
 </head>
 <body>
 
-		<div id="stats-modal" class="modal" tabindex="-1" role="dialog">
+		<div id="stats-modal" class="modal fade text-center" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -25,14 +27,21 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	         <div id="upvotes"><span id="num-of-upvotes">Num of Upvotes</span></div>
-					 <div id="downvotes"><span id="num-of-downvotes">Num of Downvotes</span></div>
-					 <div id="recent-activity">Most Recent Activity: <span id="activity"></span> on <span id="activity-date"></span></div>
+	      <div class="modal-body text-center">
+<!-- 	         <div id="upvotes"><span id="num-of-upvotes">Num of Upvotes</span></div>
+ -->					 <!-- <div id="downvotes"><span id="num-of-downvotes">Num of Downvotes</span></div> -->
+
+          <button id="upvote-btn" type="button" class="btn btn-success" markerID-data=""><i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
+              <span id="num-of-upvotes"></span> 
+          </button>
+          <button id="downvote-btn" type="button" class="btn btn-danger" markerID-data=""><i class="fa fa-thumbs-o-down" style="font-size:36px"></i>
+              <span id="num-of-downvotes"></span>
+          </button>
+
 	      </div>
 	      <div class="modal-footer">
-	        <button id="upvote-btn" type="button" class="btn btn-primary" markerID-data="">Thumbs Up</button>
-	        <button id="downvote-btn" type="button" class="btn btn-primary" markerID-data="">Thumbs Down</button>
+	                  <div id="recent-activity">Most Recent Activity: <span id="activity"></span> on <span id="activity-date"></span></div>
+
 	      </div>
 	    </div>
 	  </div>
@@ -73,7 +82,7 @@
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">List of Food Trucks</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Find Food Trucks</h2>
         <hr class="star-dark mb-5">
 
            	<div id="map"></div>
@@ -93,12 +102,12 @@
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <div class="modal-body">
+		      <div class="modal-body text-center">
 					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button id="truck-query" class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+						<input class="form-control mr-sm-2 text-center" type="search" placeholder="Search" aria-label="Search">
+						<button id="truck-query" class="btn my-2 my-sm-0" type="submit">Submit</button>
 					</form>
-					<p>Sorry, no food truck found with that name</p>
+					<p id="noFoodTruckFound">Sorry, no food truck found with that name</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,9 +119,9 @@
 			<button class="btn btn-primary col-md-3" type="submit" value="Input">Find a Food Truck Near Me</button>
 		</div>
 		</div>
-
-<br><br>
-
+        
+<!-- thumbnails starts here -->
+        
         <div class="row">
           <div class="col-md-6 col-lg-4">
             <a class="portfolio-item d-block mx-auto box box1 shadow1" href="#portfolio-modal-1">
@@ -205,8 +214,7 @@
         <hr class="star-dark mb-5">
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+          
             <form name="sentMessage" id="contactForm" novalidate="novalidate">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
@@ -255,15 +263,18 @@
             <h4 class="text-uppercase mb-4">Location</h4>
             <p class="lead mb-0">1111 Testing Drive
               <br>Denver, CO 80204</p>
+              <br><br>
+            <h5 class="mb-0"> Copyright &copy; Food Truckr 2018</h5>
           </div>
 
         </div>
       </div>
     </footer>
 
+    
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; Food Truckr 2018</small>
+        <small></small>
       </div>
     </div>
 
@@ -443,7 +454,7 @@
     </script>
 
 	<!-- Map Functions JavaScript -->
-	<script src="./assets/javascript/mary.js"></script>
+	<script src="./assets/javascript/maplogic.js"></script>
 
   </body>
 
