@@ -285,7 +285,7 @@ background-color: #1a252f;
 border-color: #1a252f; }
 
 #map {
-height: 400px;
+height: 550px;
 width: 100%;
 }
 
@@ -317,7 +317,7 @@ color: white;
 
 /*Mary's CSS start*/
 
-.box{
+/*.box{
   width:60%;
   height:200px;
   float:left;
@@ -360,7 +360,7 @@ mb-5{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+}*/
 
 /*Mary's CSS end*/
 
