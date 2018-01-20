@@ -10,9 +10,14 @@ h6 {
 font-weight: 700;
 font-family: 'Montserrat'; }
 
-.img-fluid{
-max-width: 100%;
-height: auto;
+.img{
+width: 100%;
+background-position: center center;
+}
+
+.port {
+  overflow: hidden;
+  max-height: 300px;
 }
 
 hr.star-light,
