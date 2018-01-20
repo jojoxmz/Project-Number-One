@@ -125,7 +125,7 @@ function verifyTruckLocation() {
 
 }
 
-var getUserCurrentLocationWithPromise = function() {
+var getUserCurrentLocationWithPromise = function(result) {
   var infoWindow = new google.maps.InfoWindow;
   var deferred = new $.Deferred();
 
@@ -170,12 +170,65 @@ function dropPinAtUserCurrentLocationAndZoom() {
   }
 }
 
+function testSearchTerm(searchTerm) {
+  const client_id = 'UBoDtdxOKSgJELPqsAtwag';
+  const client_secret = 'DluMc4r2kSvoSRdksiaNDNqkXiA9fFJKRPPWFruza63FtNGeRJrYaqCIN3StcVNZ';
+  const corsHeroku = 'https://cors-anywhere.herokuapp.com/';
+
+    var regEx = /[-'":]/g
+
+    fetch(`${corsHeroku}https://api.yelp.com/oauth2/token?client_id=${client_id}&client_secret=${client_secret}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({ grant_type: 'client_credentials' })
+    })
+    .then((response) => response.json())
+    .then((responseJSON) => responseJSON.access_token)
+    .then((accessToken) => {
+      fetch(corsHeroku + "https://api.yelp.com/v3/businesses/search?term=" + searchTerm + "&categories=foodtrucks&latitude=39.742043&longitude=-104.991531", {
+        method: 'GET',
+        headers: {
+          'authorization': `Bearer ${accessToken}`,
+        }
+      })
+      .then(response =>  response.json())
+      .then(response => {
+        console.log(searchTerm);
+        console.log(response);
+
+
+      console.log(response.businesses.length)
+      console.log(response.businesses[1])
+      if(response.businesses.length == 0) {
+         $("#noFoodTruckFound").show();
+         $("#search-term").val("");
+         return false;
+       } else if (response.businesses.length > 0) {
+         for(var i = 0; i < response.businesses.length; i++) {
+           if((response.businesses[i].name).toUpperCase().replace(regEx, '') == searchTerm.toUpperCase().replace(regEx, '')) {
+             dropNewTruckPin(searchTerm);
+           } else {
+             $("#noFoodTruckFound").show();
+             $("#search-term").val("");
+           }
+         }
+       }
+     });
+   });
+ }
+
 $("#truck-query").on("click", function(event) {
   event.preventDefault();
+  var searchTerm = $("#search-term").val().trim();
+  testSearchTerm(searchTerm);
+});
 
+function dropNewTruckPin(searchTerm) {
     getUserCurrentLocationWithPromise().then(function(position) {
 
-    var newMarkerData = new MarkerDataObj(position.lat, position.lng, "newTruck");
+    var newMarkerData = new MarkerDataObj(position.lat, position.lng, searchTerm);
     var newKey = markersRef.push().key;
     newMarkerData.markerID = newKey;
     console.log(newKey);
@@ -215,7 +268,7 @@ $("#truck-query").on("click", function(event) {
     updates['/trucks/' + newMarkerData.truckName + '/' + newKey] = newMarkerData;
     database.ref().update(updates);
   });
-});
+}
 
 $("#upvote-btn, #downvote-btn").on("click", function() {
    if($(this).attr("id") == "upvote-btn") {
@@ -247,9 +300,9 @@ function updateFbUpVoteCount(currentUpVotes, markerID) {
       var truckName = markerArr[i].title;
       console.log(truckName);
 
-    //$("#stat-modal").modal("hide");
-    //$("#upvote-btn").attr("markerID-data", "");
-    //$("#downvote-btn").attr("markerID-data", "");
+      //$("#stat-modal").modal("hide");
+      //$("#upvote-btn").attr("markerID-data", "");
+      //$("#downvote-btn").attr("markerID-data", "");
 
       markersRef.child(markerID).update({
         upvotes: currentUpVotes,

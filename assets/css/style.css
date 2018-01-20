@@ -369,3 +369,7 @@ mb-5{
 #stats-footer {
   font-size: 1.2rem;
 }
+
+#noFoodTruckFound {
+  display: none;
+}
