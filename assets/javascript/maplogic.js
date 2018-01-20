@@ -21,6 +21,7 @@ connectedRef.on("value", function(snap) {
   if (snap.val()) {
     var con = connectionsRef.push(true);
     con.onDisconnect().remove();
+    userKey = con.key;
   }
 });
 
@@ -83,7 +84,8 @@ var currentLocation = {};
           $("#num-of-upvotes").text(marker.upvotes);
           $("#num-of-downvotes").text(marker.downvotes);
           $("#activity").text(marker.activity);
-          $("#stats-modal").attr("markerID-data", marker.markerID);
+          $("#upvote-btn").attr("markerID-data", marker.markerID);
+          $("#downvote-btn").attr("markerID-data", marker.markerID);
           $("#stats-modal").modal("show");
         });
       }
@@ -166,6 +168,8 @@ $("#truck-query").on("click", function(event) {
     var newMarkerData = new MarkerDataObj(position.lat, position.lng, "newTruck");
     var newKey = markersRef.push().key;
     newMarkerData.markerID = newKey;
+    console.log(newKey);
+    console.log(newMarkerData);
     //ADD: Truck ID to MarkerData Object if possible with YELP API call
 
     //New marker dropped with custom data to be stored in and updated with firebase
@@ -173,7 +177,7 @@ $("#truck-query").on("click", function(event) {
       position: {lat: newMarkerData.lat, lng: newMarkerData.lng},
       map: map,
       title: newMarkerData.truckName,
-      markerID: newMarkerData.newKey,
+      markerID: newMarkerData.markerID,
       upvotes: newMarkerData.upvotes,
       downvotes: newMarkerData.downvotes,
       recentActivity: newMarkerData.recentActivity,
@@ -182,22 +186,26 @@ $("#truck-query").on("click", function(event) {
 
     map.setZoom(18);
     map.panTo(marker.position);
+    console.log(marker.markerID);
 
     //Push new marker
     markerArr.push(marker);
 
     //Enclosing reference to marker
-    function attachClickEvent(marker) {
+    function attachNewClickEvent(marker) {
       google.maps.event.addListener(marker, "click", function() {
         $("#truck-name").text(marker.title);
         $("#num-of-upvotes").text(marker.upvotes);
         $("#num-of-downvotes").text(marker.downvotes);
         $("#activity").text(marker.activity);
+        $("#upvote-btn").attr("markerID-data", marker.markerID);
+        $("#downvote-btn").attr("markerID-data", marker.markerID);
         $("#stats-modal").modal("show");
       });
     }
 
-    attachClickEvent(marker);
+    attachNewClickEvent(marker);
+    console.log("Array length: " +  markerArr.length);
 
     //Push new marker to firebase
     var updates = {};
@@ -206,6 +214,112 @@ $("#truck-query").on("click", function(event) {
     database.ref().update(updates);
   });
 });
+
+$("#upvote-btn, #downvote-btn").on("click", function() {
+   if($(this).attr("id") == "upvote-btn") {
+     var currentUpVotes = parseInt($("#num-of-upvotes").text());
+     var markerID = $(this).attr("markerID-data");
+     console.log("Array length: " + markerArr.length);
+
+     currentUpVotes++;
+     $("#num-of-upvotes").text(currentUpVotes);
+
+     //Update firebase
+     for(i = 0; i < markerArr.length; i++) {
+
+      if(markerArr[i].markerID == markerID) {
+        var truckName = markerArr[i].title;
+        console.log(truckName);
+
+        markersRef.child(markerID).update({
+          upvotes: currentUpVotes,
+          recentActivity: "Location upvoted",
+          recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+        })
+
+        trucksRef.child(truckName).child(markerID).update({
+          upvotes: currentUpVotes,
+          recentActivity: "Location upvoted",
+          recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+        });
+      }
+    }
+
+    $("#stat-modal").modal("hide");
+    $("#upvote-btn").attr("markerID-data", "");
+    $("#downvote-btn").attr("markerID-data", "");
+
+} else if ($(this).attr("id") == "downvote-btn") {
+   var currentDownVotes = parseInt($("#num-of-downvotes").text());
+   var markerID = $(this).attr("markerID-data");
+   console.log(currentDownVotes);
+   console.log(markerID);
+
+   currentDownVotes++;
+  }
+});
+
+markersRef.on("child_added", function(snap) {
+  if(initialDisplaySet == true) {
+  console.log("Array length: " +  markerArr.length);
+
+    var isCurrentPinner = false;
+    for(var i = 0; i < markerArr.length; i++) {
+      console.log(snap.val().markerID);
+      console.log(markerArr[i].markerID);
+      if(markerArr[i].markerID == snap.val().markerID) {
+        isCurrentPinner = true;
+        console.log(markerArr);
+      }
+    }
+
+    if(isCurrentPinner == false) {
+      var marker = new google.maps.Marker({
+        position: {lat: snap.val().lat, lng: snap.val().lng},
+        map: map,
+        title: snap.val().truckName,
+        markerID: snap.val().markerID,
+        upvotes: snap.val().upvotes,
+        downvotes: snap.val().downvotes,
+        recentActivity: snap.val().recentActivity,
+        recentActivityTime: snap.val().recentActivityTime
+      });
+
+      function attachNewClickEvent(marker) {
+        google.maps.event.addListener(marker, "click", function() {
+          $("#truck-name").text(marker.title);
+          $("#num-of-upvotes").text(marker.upvotes);
+          $("#num-of-downvotes").text(marker.downvotes);
+          $("#activity").text(marker.activity);
+          $("#upvote-btn").attr("markerID-data", marker.markerID);
+          $("#downvote-btn").attr("markerID-data", marker.markerID);
+          $("#stats-modal").modal("show");
+        });
+      }
+
+      attachNewClickEvent(marker);
+
+      markerArr.push(marker);
+      console.log(markerArr);
+      console.log("Array length: " +  markerArr.length);
+    }
+  }
+});
+
+markersRef.on("child_changed", function(snap) {
+   var markerID = snap.val().markerID;
+   console.log(snap.val());
+
+   for(var i = 0; i < markerArr.length; i++) {
+     if(markerArr[i].markerID == markerID) {
+       markerArr[i].upvotes = snap.val().upvotes,
+       markerArr[i].downvotes = snap.val().downvotes,
+       markerArr[i].recentActivity = snap.val().recentActivity,
+       markerArr[i].recentActivityTime = snap.val().recentActivityTime
+     }
+   }
+});
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
