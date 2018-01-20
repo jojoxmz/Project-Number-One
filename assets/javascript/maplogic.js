@@ -225,7 +225,7 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
 
      currentUpVotes++;
      updateFbUpVoteCount(currentUpVotes, markerID);
-      /*$("#stat-modal").modal("hide");
+      /*$("#stats-modal").modal("hide");
       $("#upvote-btn").attr("markerID-data", "");
       $("#downvote-btn").attr("markerID-data", "");*/
 
