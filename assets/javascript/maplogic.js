@@ -235,9 +235,15 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
 function updateFbUpVoteCount(currentUpVotes, markerID) {
   for(i = 0; i < markerArr.length; i++) {
 
+
     if(markerArr[i].markerID == markerID) {
       var truckName = markerArr[i].title;
       console.log(truckName);
+
+    //$("#stat-modal").modal("hide");
+    //$("#upvote-btn").attr("markerID-data", "");
+    //$("#downvote-btn").attr("markerID-data", "");
+
 
       markersRef.child(markerID).update({
         upvotes: currentUpVotes,
