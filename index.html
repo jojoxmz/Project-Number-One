@@ -18,35 +18,37 @@
 </head>
 <body>
 
-		<div id="stats-modal" class="modal fade text-center" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 id="truck-name" class="modal-title">Truck Name</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body text-center">
-<!-- 	         <div id="upvotes"><span id="num-of-upvotes">Num of Upvotes</span></div>
- -->					 <!-- <div id="downvotes"><span id="num-of-downvotes">Num of Downvotes</span></div> -->
-
-          <button id="upvote-btn" type="button" class="btn btn-success" markerID-data=""><i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
-              <span id="num-of-upvotes"></span> 
-          </button>
-          <button id="downvote-btn" type="button" class="btn btn-danger" markerID-data=""><i class="fa fa-thumbs-o-down" style="font-size:36px"></i>
-              <span id="num-of-downvotes"></span>
-          </button>
-
-	      </div>
-	      <div class="modal-footer">
-	                  <div id="recent-activity">Most Recent Activity: <span id="activity"></span> on <span id="activity-date"></span></div>
-
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
+    <div id="stats-modal" class="modal fade text-center" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+    	        <h5 id="truck-name" class="modal-title">Truck Name</h5>
+    	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    	           <span aria-hidden="true">&times;</span>
+    	        </button>
+          </div>
+          
+          <div class="modal-body text-center">	         
+              <button id="upvote-btn" type="button" class="btn btn-success" markerID-data=""><i class="fa fa-thumbs-o-up" style="font-size:36px"></i>
+                  <span id="num-of-upvotes"></span> 
+              </button>
+              <button id="downvote-btn" type="button" class="btn btn-danger" markerID-data=""><i class="fa fa-thumbs-o-down" style="font-size:36px"></i>
+                  <span id="num-of-downvotes"></span>
+              </button>
+          </div>
+          
+          <div class="modal-footer">
+            <div id="recent-activity"> 
+                Most Recent Activity: 
+                <span id="activity"></span> 
+                on 
+                <span id="activity-date"></span>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
 
 	<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
 		<a class="navbar-brand js-scroll-trigger" href="#page-top">Navbar</a>
@@ -126,7 +128,7 @@
           <div class="col-md-6 col-lg-4">
             <a class="portfolio-item d-block mx-auto box box1 shadow1" href="#portfolio-modal-1">
 								<div class="container inlay">
-  							<img src="./assets/images/mana.jpg" alt="smmana" style="width:80%;">
+  							<img src="./assets/images/mana.jpg" alt="smmana" width="80%">
   							<div class="centered">Manna in Heaven</div>
 								</div>
               <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
@@ -270,7 +272,6 @@
         </div>
       </div>
     </footer>
-
     
     <div class="copyright py-4 text-center text-white">
       <div class="container">
@@ -322,10 +323,10 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Freddy's Cuisine</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="./assets/images/fred.jpg" alt="fred" width="200" height="40">
-              <p class="mb-5">Our mission is to show the best of the Latin culture through the intense  flavors, aromas and authentic ingredients of the latin food. With our catering services and our food truck we  share our passion for delicious  food with you to enrich your event, and to build a long lasting relationship.
+                  <img class="img-fluid mb-5" src="./assets/images/fred.jpg" alt="fred" width="200" height="40">
+              
+                  <p class="mb-5">Our mission is to show the best of the Latin culture through the intense  flavors, aromas and authentic ingredients of the latin food. With our catering services and our food truck we  share our passion for delicious  food with you to enrich your event, and to build a long lasting relationship.</p>
 
-</p>
 							<div class="hours-div">Hours of Operation Unavailable</div>
 							<div class="review-div"></div>
 							<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
@@ -348,8 +349,9 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Cluck Chicken</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="./assets/images/cluck.jpg" width="200" height="40" alt="cluck">
-              <p class="mb-5">CLUCK is a mobile food trailer serving up authentic southern comfort food. CLUCK specializes in hand breaded chicken fingers, hand cut French fries, Texas toast with garlic infused butter, and several different dipping sauces.</p>
+                  <img class="img-fluid mb-5" src="./assets/images/cluck.jpg" width="200" height="40" alt="cluck">
+                  
+                  <p class="mb-5">CLUCK is a mobile food trailer serving up authentic southern comfort food. CLUCK specializes in hand breaded chicken fingers, hand cut French fries, Texas toast with garlic infused butter, and several different dipping sauces.</p>
 							<div class="hours-div"></div>
 							<div class="review-div"></div>
 								<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
@@ -372,8 +374,9 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">WongWayVeg</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="./assets/images/wong.jpg"width="200" height="40"alt="wong">
-              <p class="mb-5">We are inspired by seasonal and local produce, cuisine from around the world, and adding our own twist to plant-based food.</p>
+                  <img class="img-fluid mb-5" src="./assets/images/wong.jpg"width="200" height="40"alt="wong">
+                  
+                  <p class="mb-5">We are inspired by seasonal and local produce, cuisine from around the world, and adding our own twist to plant-based food.</p>
 							<div class="hours-div"></div>
 							<div class="review-div"></div>
 							<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
@@ -396,8 +399,9 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">La Chiva</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="./assets/images/chiva.jpg" width="200" height="40"alt="chiva">
-              <p class="mb-5">La Chiva brings authentic, flavorful Colombian recipes to South Denver.</p>
+                  <img class="img-fluid mb-5" src="./assets/images/chiva.jpg" width="200" height="40"alt="chiva">
+                  
+                  <p class="mb-5">La Chiva brings authentic, flavorful Colombian recipes to South Denver.</p>
 							<div class="hours-div"></div>
 							<div class="review-div"></div>
 							<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
@@ -420,8 +424,9 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Pavy's Food Truck</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="./assets/images/pavy.jpg"width="200" height="40" alt="pavy">
-              <p class="mb-5">Denver's favorite Gourmet Sandwich Food Truck </p>
+                  <img class="img-fluid mb-5" src="./assets/images/pavy.jpg"width="200" height="40" alt="pavy">
+                  
+                  <p class="mb-5">Denver's favorite Gourmet Sandwich Food Truck </p>
 							<div class="hours-div"></div>
 							<div class="review-div"></div>
 							<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
