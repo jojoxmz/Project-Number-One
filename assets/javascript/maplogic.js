@@ -235,6 +235,51 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
      console.log("Array length: " + markerArr.length);
 
      currentUpVotes++;
+
+     updateFbUpVoteCount(currentUpVotes, markerID);
+      /*$("#stats-modal").modal("hide");
+      $("#upvote-btn").attr("markerID-data", "");
+      $("#downvote-btn").attr("markerID-data", "");*/
+
+  } else if ($(this).attr("id") == "downvote-btn") {
+     var currentDownVotes = parseInt($("#num-of-downvotes").text());
+     var markerID = $(this).attr("markerID-data");
+     console.log(currentDownVotes);
+     console.log(markerID);
+
+     currentDownVotes++;
+     updateFbDownVoteCount(currentDownVotes, markerID)
+    }
+});
+
+
+    $("#stat-modal").modal("hide");
+    $("#upvote-btn").attr("markerID-data", "");
+    $("#downvote-btn").attr("markerID-data", "");
+
+function updateFbUpVoteCount(currentUpVotes, markerID) {
+  for(i = 0; i < markerArr.length; i++) {
+
+    if(markerArr[i].markerID == markerID) {
+      var truckName = markerArr[i].title;
+      console.log(truckName);
+
+    //$("#stat-modal").modal("hide");
+    //$("#upvote-btn").attr("markerID-data", "");
+    //$("#downvote-btn").attr("markerID-data", "");
+
+      markersRef.child(markerID).update({
+        upvotes: currentUpVotes,
+        recentActivity: "Location upvoted",
+        recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+      })
+
+      trucksRef.child(truckName).child(markerID).update({
+        upvotes: currentUpVotes,
+        recentActivity: "Location upvoted",
+        recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+      });
+
      $("#num-of-upvotes").text(currentUpVotes);
 
      //Update firebase
