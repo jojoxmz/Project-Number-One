@@ -10,9 +10,13 @@ h6 {
 font-weight: 700;
 font-family: 'Montserrat'; }
 
-.img-fluid{
-max-width: 100%;
-height: auto;
+.images{
+  max-width: 100%;
+}
+
+.port {
+  overflow: hidden;
+  height: 300px;
 }
 
 hr.star-light,
@@ -285,7 +289,7 @@ background-color: #1a252f;
 border-color: #1a252f; }
 
 #map {
-height: 400px;
+height: 550px;
 width: 100%;
 }
 
@@ -317,7 +321,7 @@ color: white;
 
 /*Mary's CSS start*/
 
-.box{
+/*.box{
   width:60%;
   height:200px;
   float:left;
@@ -360,7 +364,7 @@ mb-5{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+}*/
 
 /*Mary's CSS end*/
 
