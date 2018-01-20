@@ -293,3 +293,54 @@ a {
 .main-btn{
   padding: 10px;
 }
+
+
+.box{
+  width:60%;
+  height:200px;
+  float:left;
+  background-color: purple;
+  border-radius:5px;
+  display: inline-block;
+}
+
+.shadow1{
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.4) inset;
+position: relative;
+}
+
+
+
+}
+
+.mfp-hide{
+  background-color: purple;
+}
+
+/*.innerblok, .mx-auto, .bg-white{
+/*background-color: lightgrey;*/
+
+
+mb-5{
+  text-align: center;
+}
+
+.hours-div, .review-div{
+  font-family: 'Montserrat';
+  padding: 20px;
+}
+
+.inlay{
+    position: relative;
+    text-align: center;
+    color: darkgrey;
+    background-color: darkgrey;
+}
+
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
