@@ -285,7 +285,7 @@ background-color: #1a252f;
 border-color: #1a252f; }
 
 #map {
-height: 400px;
+height: 550px;
 width: 100%;
 }
 
@@ -308,10 +308,16 @@ background: #1a252f;
 color: white;
 }
 
+#num-of-upvotes,
+#num-of-downvotes{
+  font-size: 40px;
+}
 
-/*Mary's CSS
 
-.box{
+
+/*Mary's CSS start*/
+
+/*.box{
   width:60%;
   height:200px;
   float:left;
@@ -329,8 +335,8 @@ position: relative;
   background-color: purple;
 }
 
-/*.innerblok, .mx-auto, .bg-white{
-/*background-color: lightgrey;*/
+.innerblok, .mx-auto, .bg-white{
+background-color: lightgrey;
 }
 
 mb-5{
@@ -354,6 +360,12 @@ mb-5{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+}*/
 
-*/
+/*Mary's CSS end*/
+
+/*Greg CSS*/
+
+#stats-footer {
+  font-size: 1.2rem;
+}
