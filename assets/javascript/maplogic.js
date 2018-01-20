@@ -245,7 +245,7 @@ $("#upvote-btn, #downvote-btn").on("click", function() {
       }
     }
 
-    $("#stat-modal").modal("hide");
+    // $("#stat-modal").modal("hide");
     $("#upvote-btn").attr("markerID-data", "");
     $("#downvote-btn").attr("markerID-data", "");
 
