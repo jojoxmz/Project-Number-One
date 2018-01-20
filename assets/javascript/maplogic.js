@@ -45,12 +45,17 @@ var currentLocation = {};
    }
  }
 
+ function convertTimestamp(timestamp) {
+   var newDate = moment(timestamp).format("DD MMM YYYY hh:mm:ss a");
+   return moment(newDate).fromNow();
+ }
+
  function setModalDisplay() {
    $("#truck-name").text(this.title);
    $("#num-of-upvotes").text(this.upvotes);
    $("#num-of-downvotes").text(this.downvotes);
    $("#activity").text(this.recentActivity);
-   $("activity-date").text(this.recentActivityTime);
+   $("#activity-date").text(convertTimestamp(this.recentActivityTime));
    $("#upvote-btn").attr("markerID-data", this.markerID);
    $("#downvote-btn").attr("markerID-data", this.markerID);
    $("#stats-modal").modal("show");
@@ -73,6 +78,8 @@ var currentLocation = {};
       var downvotes = childNodes.val().downvotes;
       var recentActivity = childNodes.val().recentActivity;
       var recentActivityTime = childNodes.val().recentActivityTime;
+
+      console.log("Time: " + recentActivityTime);
 
       var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
@@ -252,9 +259,9 @@ function updateFbUpVoteCount(currentUpVotes, markerID) {
       })
 
       trucksRef.child(truckName).child(markerID).update({
-      upvotes: currentUpVotes,
-      recentActivity: "Location upvoted",
-      recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+        upvotes: currentUpVotes,
+        recentActivity: "Location upvoted",
+        recentActivityTime: firebase.database.ServerValue.TIMESTAMP
       });
     }
   }
@@ -274,9 +281,9 @@ function updateFbDownVoteCount(currentDownVotes, markerID) {
       })
 
       trucksRef.child(truckName).child(markerID).update({
-      downvotes: currentDownVotes,
-      recentActivity: "Location downvoted",
-      recentActivityTime: firebase.database.ServerValue.TIMESTAMP
+        downvotes: currentDownVotes,
+        recentActivity: "Location downvoted",
+        recentActivityTime: firebase.database.ServerValue.TIMESTAMP
       });
     }
   }
@@ -323,6 +330,8 @@ markersRef.on("child_added", function(snap) {
 markersRef.on("child_changed", function(snap) {
    var markerID = snap.val().markerID;
    console.log(snap.val());
+   console.log(snap.val().recentActivityTime);
+   console.log(convertTimestamp(snap.val().recentActivityTime));
 
    for(var i = 0; i < markerArr.length; i++) {
      if(markerArr[i].markerID == markerID) {
@@ -338,7 +347,7 @@ markersRef.on("child_changed", function(snap) {
      $("#num-of-upvotes").text(snap.val().upvotes);
      $("#num-of-downvotes").text(snap.val().downvotes);
      $("#activity").text(snap.val().recentActivity);
-     $("#activity-date").text(snap.val().recentActivityTime);
+     $("#activity-date").text(convertTimestamp(snap.val().recentActivityTime));
    }
 });
 
